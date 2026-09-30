@@ -1,0 +1,1767 @@
+/* ==========================================================================
+   Smriti-Setu NER (স্মৃতি সেতু) Design System & Stylesheet
+   Culturally Grounded Cognitive Gaming & Dementia Memory Assistance Platform
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Design Tokens & Theme Variables
+   -------------------------------------------------------------------------- */
+:root {
+  /* Botanical Tea Garden & Northeast Natural Heritage Palette */
+  --primary-50: #e8f5e9;
+  --primary-100: #c8e6c9;
+  --primary-200: #a5d6a7;
+  --primary-500: #2e7d32;   /* Deep Tea Leaf Green */
+  --primary-600: #1b5e20;   /* Lush Forest Green */
+  --primary-700: #144917;
+  --primary-accent: #00897b; /* Living Root / River Jade */
+
+  /* Warm Muga Silk & Ochre Secondary Palette */
+  --warm-gold-50: #fffde7;
+  --warm-gold-200: #fff59d;
+  --warm-gold-500: #f59e0b; /* Golden Muga Silk */
+  --warm-gold-600: #d97706; /* Assam Sunset Amber */
+  --warm-terracotta: #c2410c; /* Brahmaputra River Clay */
+
+  /* Soothing Accessible Backgrounds & Surfacing */
+  --bg-primary: #f7faf7;     /* Calming soft sage-tinted ivory */
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #ffffff;
+  --bg-subtle: #edf4ed;
+  --bg-glass: rgba(255, 255, 255, 0.88);
+  --border-subtle: #d6e2d6;
+  --border-focus: #1b5e20;
+
+  /* Senior-Accessible Typography & Text Colors */
+  --text-primary: #19271a;   /* Maximum contrast readable dark green-black (WCAG AAA) */
+  --text-secondary: #3b4e3c;
+  --text-muted: #5e735f;
+  --text-inverse: #ffffff;
+
+  /* Neuropsychological Status Colors */
+  --status-healthy: #16a34a;
+  --status-mci: #ca8a04;
+  --status-moderate: #ea580c;
+  --status-severe: #dc2626;
+  --status-info: #0284c7;
+
+  /* Senior Accessibility Metrics */
+  --font-base: 18px;
+  --font-family-display: 'Outfit', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-family-body: 'Lexend', 'Segoe UI', system-ui, sans-serif;
+  --min-touch-target: 58px;
+  --border-radius-sm: 10px;
+  --border-radius-md: 18px;
+  --border-radius-lg: 26px;
+  --border-radius-xl: 36px;
+  --border-radius-full: 9999px;
+
+  /* Elevation & Shadows */
+  --shadow-sm: 0 2px 8px rgba(27, 94, 32, 0.08);
+  --shadow-md: 0 6px 20px rgba(27, 94, 32, 0.12);
+  --shadow-lg: 0 12px 36px rgba(27, 94, 32, 0.16);
+  --shadow-warm: 0 8px 24px rgba(217, 119, 6, 0.18);
+  --shadow-glow: 0 0 24px rgba(46, 125, 50, 0.35);
+
+  --transition-smooth: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* High Contrast Mode for Low Vision / Severe MCI */
+body.theme-high-contrast {
+  --bg-primary: #000000;
+  --bg-surface: #121212;
+  --bg-surface-elevated: #1e1e1e;
+  --bg-subtle: #2a2a2a;
+  --bg-glass: rgba(20, 20, 20, 0.95);
+  --border-subtle: #facc15;
+  --border-focus: #facc15;
+  --text-primary: #ffffff;
+  --text-secondary: #fef08a;
+  --text-muted: #e2e8f0;
+  --primary-500: #eab308;
+  --primary-600: #facc15;
+  --warm-gold-500: #fde047;
+  --shadow-md: 0 0 16px rgba(250, 204, 21, 0.3);
+}
+
+/* Warm Ochre / Sunset Silk Theme */
+body.theme-warm-silk {
+  --bg-primary: #fdfbf7;
+  --bg-surface: #ffffff;
+  --bg-subtle: #fef3e2;
+  --primary-500: #c2410c;
+  --primary-600: #9a3412;
+  --primary-accent: #d97706;
+  --border-subtle: #fed7aa;
+}
+
+/* Dynamic Font Scaling */
+body.font-size-large {
+  --font-base: 22px;
+}
+
+body.font-size-xlarge {
+  --font-base: 26px;
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset & Global Base
+   -------------------------------------------------------------------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  min-height: 100vh;
+  font-family: var(--font-family-body);
+  font-size: var(--font-base);
+  line-height: 1.6;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(46, 125, 50, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(245, 158, 11, 0.06) 0%, transparent 40%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Focus outline for senior accessibility keyboard / screen reader users */
+*:focus-visible {
+  outline: 3px solid var(--border-focus);
+  outline-offset: 3px;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  background: none;
+}
+
+/* --------------------------------------------------------------------------
+   3. Header & Senior Accessibility Bar
+   -------------------------------------------------------------------------- */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg-glass);
+  backdrop-filter: blur(16px);
+  border-bottom: 2px solid var(--border-subtle);
+  padding: 0.85rem 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.header-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.brand-logo-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--border-radius-md);
+  background: linear-gradient(135deg, var(--primary-500), var(--primary-accent));
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  box-shadow: var(--shadow-md);
+}
+
+.brand-titles h1 {
+  font-family: var(--font-family-display);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--primary-600);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.brand-titles .tagline {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.accessibility-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.toolbar-group {
+  display: flex;
+  align-items: center;
+  background: var(--bg-subtle);
+  padding: 0.3rem 0.5rem;
+  border-radius: var(--border-radius-full);
+  border: 1px solid var(--border-subtle);
+}
+
+.toolbar-btn {
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--border-radius-full);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: var(--transition-smooth);
+  min-height: 42px;
+}
+
+.toolbar-btn:hover, .toolbar-btn.active {
+  background: var(--primary-500);
+  color: var(--text-inverse);
+  transform: translateY(-1px);
+}
+
+.lang-select-wrapper {
+  position: relative;
+}
+
+.lang-select {
+  appearance: none;
+  background: var(--bg-surface);
+  border: 2px solid var(--border-subtle);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.5rem 2.2rem 0.5rem 1rem;
+  border-radius: var(--border-radius-full);
+  cursor: pointer;
+  min-height: 44px;
+}
+
+.lang-select-wrapper::after {
+  content: '▼';
+  font-size: 0.65rem;
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--primary-600);
+}
+
+/* --------------------------------------------------------------------------
+   4. Navigation Tabs
+   -------------------------------------------------------------------------- */
+.main-navigation {
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+}
+
+.nav-tabs {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem 1.5rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.nav-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--border-radius-md);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  transition: var(--transition-bounce);
+  white-space: nowrap;
+  min-height: var(--min-touch-target);
+  border: 2px solid transparent;
+}
+
+.nav-tab-btn .tab-icon {
+  font-size: 1.35rem;
+}
+
+.nav-tab-btn:hover {
+  background: var(--bg-subtle);
+  color: var(--primary-600);
+}
+
+.nav-tab-btn.active {
+  background: linear-gradient(135deg, var(--primary-50), var(--bg-subtle));
+  color: var(--primary-600);
+  border-color: var(--primary-500);
+  box-shadow: var(--shadow-sm);
+  transform: scale(1.02);
+}
+
+.senior-badge {
+  background: #fef08a;
+  color: #854d0e;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 0.15rem 0.6rem;
+  border-radius: var(--border-radius-full);
+  margin-left: 0.3rem;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   5. Main App Container & Layout
+   -------------------------------------------------------------------------- */
+.app-main {
+  max-width: 1400px;
+  margin: 1.5rem auto 5rem;
+  padding: 0 1.5rem;
+}
+
+.tab-pane {
+  display: none;
+  animation: fadeInPane 0.4s ease forwards;
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+@keyframes fadeInPane {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --------------------------------------------------------------------------
+   6. Hero & Senior Home Portal View
+   -------------------------------------------------------------------------- */
+.senior-hero-card {
+  background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 60%, #00897b 100%);
+  color: #ffffff;
+  border-radius: var(--border-radius-xl);
+  padding: 2.2rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.senior-hero-card::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.hero-content {
+  max-width: 650px;
+  z-index: 1;
+}
+
+.hero-welcome-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.35rem 0.9rem;
+  border-radius: var(--border-radius-full);
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  backdrop-filter: blur(8px);
+}
+
+.hero-title {
+  font-family: var(--font-family-display);
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 0.8rem;
+}
+
+.hero-subtitle {
+  font-size: 1.15rem;
+  opacity: 0.92;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.hero-quick-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-hero-primary {
+  background: #ffffff;
+  color: #1b5e20;
+  font-size: 1.15rem;
+  font-weight: 800;
+  padding: 0.9rem 1.8rem;
+  border-radius: var(--border-radius-full);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: var(--transition-bounce);
+  min-height: var(--min-touch-target);
+}
+
+.btn-hero-primary:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  background: var(--warm-gold-50);
+}
+
+.btn-hero-voice {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 0.85rem 1.6rem;
+  border-radius: var(--border-radius-full);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition: var(--transition-bounce);
+  min-height: var(--min-touch-target);
+}
+
+.btn-hero-voice:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.hero-companion-avatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  z-index: 1;
+}
+
+.avatar-circle {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fef08a, #f59e0b);
+  border: 4px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  box-shadow: var(--shadow-warm);
+  animation: pulseGentle 4s infinite ease-in-out;
+}
+
+@keyframes pulseGentle {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.companion-name {
+  font-size: 1.15rem;
+  font-weight: 800;
+  background: rgba(0,0,0,0.3);
+  padding: 0.3rem 0.9rem;
+  border-radius: var(--border-radius-full);
+}
+
+/* --------------------------------------------------------------------------
+   7. Senior Activity Grid (Big Easy Touch Buttons)
+   -------------------------------------------------------------------------- */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.section-header h2 {
+  font-family: var(--font-family-display);
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.section-header p {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.senior-activity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.activity-card {
+  background: var(--bg-surface);
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--border-radius-lg);
+  padding: 1.8rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: var(--transition-bounce);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  text-align: left;
+  min-height: 220px;
+}
+
+.activity-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--primary-500);
+  box-shadow: var(--shadow-lg);
+}
+
+.activity-icon-box {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--border-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.activity-card.card-heritage .activity-icon-box {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.activity-card.card-daily .activity-icon-box {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.activity-card.card-music .activity-icon-box {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.activity-card.card-photo .activity-icon-box {
+  background: #fce7f3;
+  color: #be185d;
+}
+
+.activity-card.card-screening .activity-icon-box {
+  background: #f3e8ff;
+  color: #7e22ce;
+}
+
+.activity-card h3 {
+  font-family: var(--font-family-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin-bottom: 0.4rem;
+  color: var(--text-primary);
+}
+
+.activity-card p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin-bottom: 1.2rem;
+  flex-grow: 1;
+}
+
+.activity-footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.8rem;
+  border-top: 1px dashed var(--border-subtle);
+}
+
+.activity-tag {
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.25rem 0.7rem;
+  border-radius: var(--border-radius-full);
+  background: var(--bg-subtle);
+  color: var(--primary-600);
+}
+
+.activity-play-btn {
+  background: var(--primary-500);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.95rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: var(--transition-smooth);
+}
+
+.activity-card:hover .activity-play-btn {
+  background: var(--primary-600);
+  transform: translateX(4px);
+}
+
+/* --------------------------------------------------------------------------
+   8. Cognitive Games Arena
+   -------------------------------------------------------------------------- */
+.game-container {
+  background: var(--bg-surface);
+  border-radius: var(--border-radius-xl);
+  border: 2px solid var(--border-subtle);
+  box-shadow: var(--shadow-md);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.game-header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 2px solid var(--border-subtle);
+  margin-bottom: 1.5rem;
+}
+
+.game-title-area h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary-600);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.game-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.difficulty-pill {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--border-radius-full);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.btn-game-action {
+  background: var(--primary-50);
+  color: var(--primary-600);
+  border: 2px solid var(--primary-200);
+  font-weight: 800;
+  padding: 0.55rem 1.2rem;
+  border-radius: var(--border-radius-full);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: var(--transition-smooth);
+}
+
+.btn-game-action:hover {
+  background: var(--primary-500);
+  color: #ffffff;
+}
+
+/* Memory Match Tiles Board */
+.tile-board {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 1.2rem;
+  max-width: 900px;
+  margin: 1.5rem auto;
+  perspective: 1000px;
+}
+
+.memory-tile {
+  aspect-ratio: 1 / 1;
+  background: var(--bg-subtle);
+  border: 3px solid var(--border-subtle);
+  border-radius: var(--border-radius-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+  position: relative;
+  user-select: none;
+  box-shadow: var(--shadow-sm);
+  padding: 0.5rem;
+}
+
+.memory-tile:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-500);
+}
+
+.memory-tile.revealed {
+  background: var(--bg-surface);
+  border-color: var(--primary-500);
+  transform: rotateY(0deg);
+}
+
+.memory-tile.matched {
+  background: #dcfce7;
+  border-color: #16a34a;
+  box-shadow: 0 0 15px rgba(22, 163, 74, 0.3);
+  animation: matchGlow 0.6s ease;
+}
+
+@keyframes matchGlow {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+.tile-icon {
+  font-size: 3rem;
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.tile-label {
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-align: center;
+  color: var(--text-primary);
+  max-width: 95%;
+  line-height: 1.2;
+}
+
+.tile-hidden-symbol {
+  font-size: 2.4rem;
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+/* Daily Living Sequence Game */
+.sequence-game-area {
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.sequence-prompt-box {
+  background: var(--primary-50);
+  border-left: 5px solid var(--primary-500);
+  padding: 1.2rem 1.5rem;
+  border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary-700);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sequence-slots-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.sequence-card-item {
+  background: var(--bg-surface);
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--border-radius-md);
+  padding: 1.1rem 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  cursor: pointer;
+  transition: var(--transition-bounce);
+  box-shadow: var(--shadow-sm);
+}
+
+.sequence-card-item:hover {
+  border-color: var(--primary-500);
+  background: var(--bg-subtle);
+  transform: translateX(4px);
+}
+
+.sequence-card-item.correct-step {
+  border-color: var(--status-healthy);
+  background: #f0fdf4;
+}
+
+.sequence-step-number {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--bg-subtle);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.sequence-step-text {
+  flex-grow: 1;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+/* Auditory Melody Game */
+.audio-game-wrapper {
+  max-width: 750px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.audio-play-large-btn {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0284c7, #0369a1);
+  color: #ffffff;
+  font-size: 3.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1.5rem auto;
+  box-shadow: 0 10px 30px rgba(2, 132, 199, 0.35);
+  transition: var(--transition-bounce);
+}
+
+.audio-play-large-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 15px 40px rgba(2, 132, 199, 0.45);
+}
+
+.audio-play-large-btn.playing {
+  animation: audioRipple 1.4s infinite ease-out;
+}
+
+@keyframes audioRipple {
+  0% { box-shadow: 0 0 0 0 rgba(2, 132, 199, 0.6); }
+  70% { box-shadow: 0 0 0 35px rgba(2, 132, 199, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(2, 132, 199, 0); }
+}
+
+.audio-options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+}
+
+.audio-choice-btn {
+  background: var(--bg-surface);
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--border-radius-lg);
+  padding: 1.4rem;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--transition-bounce);
+}
+
+.audio-choice-btn:hover {
+  border-color: #0284c7;
+  background: #f0f9ff;
+  transform: translateY(-3px);
+}
+
+/* --------------------------------------------------------------------------
+   9. Spatial Tea-Garden Maze Tracing
+   -------------------------------------------------------------------------- */
+.maze-canvas-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem auto;
+}
+
+#mazeCanvas {
+  background: #ffffff;
+  border: 3px solid var(--border-subtle);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.maze-controls {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   10. Reminiscence Photo & Audio Storybook
+   -------------------------------------------------------------------------- */
+.reminiscence-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 900px) {
+  .reminiscence-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.photo-display-card {
+  background: var(--bg-surface);
+  border-radius: var(--border-radius-xl);
+  border: 2px solid var(--border-subtle);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.memory-photo-frame {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  position: relative;
+  background: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.memory-photo-frame img, .memory-photo-frame svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.memory-caption-box {
+  padding: 0.5rem 0.2rem;
+}
+
+.memory-caption-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--primary-600);
+  margin-bottom: 0.3rem;
+}
+
+.memory-tags-list {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.memory-tag-chip {
+  background: var(--warm-gold-50);
+  color: #b45309;
+  border: 1px solid #fde68a;
+  padding: 0.2rem 0.75rem;
+  border-radius: var(--border-radius-full);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.reminiscence-ai-dialogue {
+  background: var(--bg-surface);
+  border-radius: var(--border-radius-xl);
+  border: 2px solid var(--border-subtle);
+  padding: 1.8rem;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ai-question-bubble {
+  background: linear-gradient(135deg, #f0fdf4, #e8f5e9);
+  border: 2px solid var(--primary-200);
+  border-radius: var(--border-radius-lg);
+  padding: 1.4rem;
+  margin-bottom: 1.2rem;
+  position: relative;
+}
+
+.ai-speaker-tag {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--primary-600);
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ai-question-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.patient-response-area {
+  margin-top: 1rem;
+}
+
+.speech-record-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1.2rem;
+  background: var(--bg-subtle);
+  border-radius: var(--border-radius-lg);
+  border: 2px dashed var(--border-subtle);
+}
+
+.btn-mic-record {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: var(--primary-500);
+  color: #ffffff;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition-bounce);
+}
+
+.btn-mic-record:hover {
+  background: var(--primary-600);
+  transform: scale(1.06);
+}
+
+.btn-mic-record.recording {
+  background: #dc2626;
+  animation: recordPulse 1.2s infinite ease-in-out;
+}
+
+@keyframes recordPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
+  50% { transform: scale(1.08); box-shadow: 0 0 0 20px rgba(220, 38, 38, 0); }
+}
+
+.speech-transcript-box {
+  min-height: 80px;
+  max-height: 120px;
+  overflow-y: auto;
+  padding: 0.8rem 1rem;
+  background: #ffffff;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--border-subtle);
+  font-size: 1.05rem;
+  color: var(--text-primary);
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   11. AI Voice Companion Room ("Aita & Koko's Verandah")
+   -------------------------------------------------------------------------- */
+.companion-room-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--bg-surface);
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--border-radius-xl);
+  padding: 2.2rem;
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+}
+
+.companion-verandah-header {
+  margin-bottom: 2rem;
+}
+
+.verandah-scene {
+  position: relative;
+  max-width: 450px;
+  margin: 0 auto 1.5rem;
+}
+
+.animated-companion-avatar {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fef3c7, #fde047);
+  border: 6px solid var(--primary-500);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5rem;
+  box-shadow: var(--shadow-glow);
+  transition: transform 0.3s ease;
+}
+
+.animated-companion-avatar.speaking {
+  animation: avatarTalk 0.8s infinite alternate ease-in-out;
+}
+
+@keyframes avatarTalk {
+  0% { transform: scale(1) translateY(0); }
+  100% { transform: scale(1.08) translateY(-6px); }
+}
+
+.companion-chat-history {
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  border-radius: var(--border-radius-md);
+  background: var(--bg-subtle);
+}
+
+.chat-bubble {
+  max-width: 80%;
+  padding: 0.9rem 1.3rem;
+  border-radius: var(--border-radius-lg);
+  font-size: 1.1rem;
+  line-height: 1.45;
+  box-shadow: var(--shadow-sm);
+}
+
+.chat-bubble.companion {
+  background: #ffffff;
+  border: 2px solid var(--primary-200);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.chat-bubble.user {
+  background: var(--primary-500);
+  color: #ffffff;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.companion-voice-bar {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --------------------------------------------------------------------------
+   12. Digital MMSE / MoCA Cognitive Screening Assessment
+   -------------------------------------------------------------------------- */
+.screening-wizard-container {
+  background: var(--bg-surface);
+  border-radius: var(--border-radius-xl);
+  border: 2px solid var(--border-subtle);
+  padding: 2.2rem;
+  box-shadow: var(--shadow-md);
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+.wizard-progress-bar {
+  height: 10px;
+  background: var(--bg-subtle);
+  border-radius: var(--border-radius-full);
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+.wizard-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-500), var(--primary-accent));
+  width: 20%;
+  transition: width 0.4s ease;
+}
+
+.screening-step-card {
+  display: none;
+}
+
+.screening-step-card.active {
+  display: block;
+  animation: fadeInPane 0.3s ease;
+}
+
+.screening-question-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 0.6rem;
+  color: var(--primary-600);
+}
+
+.screening-instruction {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+/* Clock Drawing Test Canvas */
+.clock-canvas-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem auto;
+}
+
+#clockCanvas {
+  background: #ffffff;
+  border: 3px dashed var(--primary-500);
+  border-radius: 50%;
+  cursor: crosshair;
+  touch-action: none;
+  box-shadow: var(--shadow-sm);
+}
+
+/* --------------------------------------------------------------------------
+   13. Caregiver & Doctor Tele-Dashboard ("Sahayak Hub")
+   -------------------------------------------------------------------------- */
+.dashboard-grid-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.kpi-card {
+  background: var(--bg-surface);
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--border-radius-lg);
+  padding: 1.4rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.kpi-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.kpi-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.kpi-icon {
+  font-size: 1.5rem;
+}
+
+.kpi-value {
+  font-size: 2.2rem;
+  font-weight: 800;
+  font-family: var(--font-family-display);
+  color: var(--primary-600);
+  line-height: 1.1;
+}
+
+.kpi-subtext {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.dashboard-sections-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-sections-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dash-panel {
+  background: var(--bg-surface);
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--border-radius-xl);
+  padding: 1.6rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.dash-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.dash-panel-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Reminder Schedule List */
+.reminder-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.reminder-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1.1rem;
+  background: var(--bg-subtle);
+  border-radius: var(--border-radius-md);
+  border-left: 4px solid var(--primary-500);
+}
+
+.reminder-item.urgent {
+  border-left-color: var(--status-moderate);
+  background: #fff7ed;
+}
+
+.reminder-item-time {
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--primary-600);
+}
+
+.reminder-item-desc {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* SOS & Wandering Geofence Alert Simulator */
+.geofence-box {
+  background: #fef2f2;
+  border: 2px solid #fecaca;
+  border-radius: var(--border-radius-lg);
+  padding: 1.2rem;
+  margin-top: 1rem;
+}
+
+.geofence-status {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 800;
+  color: #991b1b;
+  margin-bottom: 0.6rem;
+}
+
+/* --------------------------------------------------------------------------
+   14. Modals, Alerts & Badges
+   -------------------------------------------------------------------------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(6px);
+  z-index: 999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.modal-overlay.active {
+  display: flex;
+  animation: fadeIn 0.25s ease;
+}
+
+.modal-dialog {
+  background: var(--bg-surface);
+  border-radius: var(--border-radius-xl);
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 2.2rem;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  border: 2px solid var(--border-subtle);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-subtle);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.modal-close-btn:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* Positive Reinforcement Celebration Banner */
+.celebration-banner {
+  position: fixed;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-30px);
+  background: linear-gradient(135deg, #15803d, #22c55e);
+  color: #ffffff;
+  padding: 1.2rem 2.5rem;
+  border-radius: var(--border-radius-full);
+  box-shadow: 0 10px 30px rgba(22, 163, 74, 0.4);
+  font-size: 1.35rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.celebration-banner.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Floating Audio / Companion Assistance Toolbar */
+.floating-cue-bar {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 100;
+}
+
+.cue-sim-btn {
+  padding: 0.65rem 1.1rem;
+  border-radius: var(--border-radius-full);
+  font-weight: 800;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition-bounce);
+  min-height: 48px;
+  cursor: pointer;
+}
+
+.cue-sim-btn.med {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 2px solid #10b981;
+}
+
+.cue-sim-btn.med:hover {
+  background: #10b981;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.cue-sim-btn.water {
+  background: #f0f9ff;
+  color: #0369a1;
+  border: 2px solid #0284c7;
+}
+
+.cue-sim-btn.water:hover {
+  background: #0284c7;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.floating-assistant-btn {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  box-shadow: var(--shadow-lg);
+  transition: var(--transition-bounce);
+  border: 3px solid #ffffff;
+  cursor: pointer;
+}
+
+.floating-assistant-btn:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: var(--shadow-glow);
+}
+
+/* DDA (Dynamic Difficulty Adjustment) Badges & Hint Pulse */
+.dda-header-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
+}
+
+.dda-status-text {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary-600);
+  background: var(--bg-subtle);
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--border-radius-full);
+  border: 1px dashed var(--primary-500);
+  transition: all 0.3s ease;
+}
+
+.dda-status-text.highlight-update {
+  background: #fef08a;
+  color: #854d0e;
+  border-color: #eab308;
+  transform: scale(1.04);
+}
+
+.game-subnav-bar {
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.game-diff-group {
+  display: flex;
+  align-items: center;
+  background: var(--bg-subtle);
+  padding: 0.2rem 0.4rem;
+  border-radius: var(--border-radius-full);
+  gap: 0.3rem;
+}
+
+@keyframes ddaHintPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+    border-color: #f59e0b;
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 24px 8px rgba(245, 158, 11, 0.9);
+    border-color: #d97706;
+    transform: scale(1.06);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+    border-color: #f59e0b;
+    transform: scale(1);
+  }
+}
+
+.memory-tile.dda-hint-pulse {
+  animation: ddaHintPulse 1.4s infinite ease-in-out;
+  border: 3px solid #f59e0b !important;
+}
+
+/* Voice Reminder Alert Modal */
+.reminder-modal-dialog {
+  max-width: 580px;
+  text-align: left;
+  border: 3px solid var(--primary-500);
+  padding: 2rem;
+  box-shadow: 0 20px 50px rgba(27, 94, 32, 0.25);
+}
+
+.reminder-dialog-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--border-subtle);
+}
+
+.reminder-bell-icon {
+  width: 56px;
+  height: 56px;
+  background: #fef3c7;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  animation: bellRing 1.8s infinite ease-in-out;
+}
+
+@keyframes bellRing {
+  0%, 100% { transform: rotate(0); }
+  20% { transform: rotate(15deg); }
+  40% { transform: rotate(-15deg); }
+  60% { transform: rotate(10deg); }
+  80% { transform: rotate(-10deg); }
+}
+
+.reminder-spoken-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: var(--bg-subtle);
+  padding: 1.2rem 1.5rem;
+  border-radius: var(--border-radius-md);
+  margin-bottom: 1.5rem;
+  border-left: 5px solid var(--primary-500);
+}
+
+.reminder-dialog-actions {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+/* Status Badges */
+.badge-status-taken {
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--border-radius-full);
+}
+
+.badge-status-pending {
+  background: #fef3c7;
+  color: #b45309;
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--border-radius-full);
+}
+
+.reminder-type-tag {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+/* DDA & Session Telemetry Logs */
+.dda-log-list, .session-log-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.dda-log-card, .session-log-card {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  padding: 0.85rem 1.1rem;
+  border-radius: var(--border-radius-md);
+  transition: var(--transition-smooth);
+}
+
+.session-log-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* --------------------------------------------------------------------------
+   15. Responsive Refinements
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 1.7rem;
+  }
+  .senior-hero-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+    padding: 1.8rem 1.4rem;
+  }
+  .hero-quick-actions {
+    justify-content: center;
+  }
+  .nav-tab-btn {
+    padding: 0.6rem 0.9rem;
+    font-size: 0.95rem;
+  }
+  .tile-board {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.8rem;
+  }
+  .floating-cue-bar {
+    bottom: 1rem;
+    right: 1rem;
+  }
+  .floating-assistant-btn {
+    width: 56px;
+    height: 56px;
+    font-size: 1.6rem;
+  }
+  .cue-sim-btn {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.85rem;
+    min-height: 42px;
+  }
+  .dda-header-badge {
+    align-items: flex-start;
+    margin-top: 0.6rem;
+  }
+}
+
