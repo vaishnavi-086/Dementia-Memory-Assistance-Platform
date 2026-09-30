@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smriti-Setu NER | AI Cognitive Gaming & Memory Assistance for Elders</title>
+  <meta name="description" content="AI-Based Cognitive Gaming, Reminiscence Therapy, and Memory Assistance Platform tailored for Elderly Dementia Patients in Northeast India.">
+  
+  <!-- Senior Accessibility & Dyslexic-Friendly Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- =========================================================================
+       1. Top Accessibility & Multilingual Toolbar
+       ========================================================================= -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-section">
+        <div class="brand-logo-icon" aria-hidden="true">🌿</div>
+        <div class="brand-titles">
+          <h1 data-i18n="appTitle">Smriti-Setu NER</h1>
+          <div class="tagline" data-i18n="tagline">Cognitive Stimulation & Reminiscence Care for Northeast Elders</div>
+        </div>
+      </div>
+
+      <div class="accessibility-toolbar">
+        <!-- Regional Language Selector -->
+        <div class="lang-select-wrapper">
+          <select id="globalLangSelect" class="lang-select" aria-label="Select Regional Language">
+            <option value="en">🌐 English</option>
+            <option value="as">অসমীয়া (Assamese)</option>
+            <option value="mni">ꯃꯤꯇꯩꯂꯣꯟ (Manipuri)</option>
+            <option value="mizo">Mizo ṭawng</option>
+            <option value="kha">Ka Ktien Khasi</option>
+            <option value="bn">বাংলা (Bengali)</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+          </select>
+        </div>
+
+        <!-- Senior Accessibility Controls -->
+        <div class="toolbar-group">
+          <button id="btnFontScale" class="toolbar-btn" title="Adjust Text Size for Senior Vision">
+            🔍 A+
+          </button>
+          <button id="btnToggleContrast" class="toolbar-btn" title="Toggle High Contrast Mode">
+            🌓 Contrast
+          </button>
+          <button id="btnToggleAudio" class="toolbar-btn active" title="Toggle Soundscape and Audio">
+            🔊 Audio On
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       2. Main Navigation Bar (Oversized Senior Touch Targets)
+       ========================================================================= -->
+  <nav class="main-navigation" aria-label="Primary Navigation">
+    <div class="nav-tabs">
+      <button class="nav-tab-btn active" data-tab="home">
+        <span class="tab-icon">🏡</span>
+        <span data-i18n="navHome">Home Portal</span>
+        <span class="senior-badge">Easy</span>
+      </button>
+
+      <button class="nav-tab-btn" data-tab="games">
+        <span class="tab-icon">🧩</span>
+        <span data-i18n="navGames">Cognitive Games</span>
+      </button>
+
+      <button class="nav-tab-btn" data-tab="storybook">
+        <span class="tab-icon">📸</span>
+        <span data-i18n="navStorybook">Reminiscence Album</span>
+      </button>
+
+      <button class="nav-tab-btn" data-tab="companion">
+        <span class="tab-icon">👵</span>
+        <span data-i18n="navCompanion">Aita & Koko AI</span>
+      </button>
+
+      <button class="nav-tab-btn" data-tab="screening">
+        <span class="tab-icon">🩺</span>
+        <span data-i18n="navScreening">Memory Checkup</span>
+      </button>
+
+      <button class="nav-tab-btn" data-tab="caregiver">
+        <span class="tab-icon">📊</span>
+        <span data-i18n="navCaregiver">Caregiver & Doctor Hub</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- =========================================================================
+       3. Main Application Workspace
+       ========================================================================= -->
+  <main class="app-main">
+
+    <!-- -----------------------------------------------------------------------
+         TAB 1: SENIOR HOME PORTAL
+         ----------------------------------------------------------------------- -->
+    <section id="tab-home" class="tab-pane active">
+      <!-- Hero Banner -->
+      <div class="senior-hero-card">
+        <div class="hero-content">
+          <div class="hero-welcome-badge">
+            <span>✨</span> <span data-i18n="welcomeGreeting">Good Morning, Respected Elder!</span>
+          </div>
+          <h2 class="hero-title" data-i18n="welcomeGreeting">Good Morning, Respected Elder!</h2>
+          <p class="hero-subtitle" data-i18n="welcomeSub">
+            Welcome to your joyful memory corner. How are you feeling today in our beautiful hills?
+          </p>
+          <div class="hero-quick-actions">
+            <button class="btn-hero-primary" onclick="window.app.switchTab('games')">
+              <span>▶</span> <span data-i18n="btnStartDaily">Start Today's Joyful Activity</span>
+            </button>
+            <button class="btn-hero-voice" onclick="window.app.switchTab('companion')">
+              <span>🎙️</span> <span data-i18n="btnVoiceTalk">Talk with Aita AI</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-companion-avatar">
+          <div class="avatar-circle">👵</div>
+          <div class="companion-name">Aita (Grandma AI)</div>
+        </div>
+      </div>
+
+      <!-- Activity Cards Grid -->
+      <div class="section-header">
+        <div>
+          <h2 data-i18n="activityTitle">Gentle Mind & Memory Activities</h2>
+          <p data-i18n="activitySub">Designed with zero pressure, soothing sounds, and rich cultural memories of Northeast India.</p>
+        </div>
+      </div>
+
+      <div class="senior-activity-grid">
+        <!-- Activity 1: Heritage Match -->
+        <div class="activity-card card-heritage" onclick="window.app.switchTab('games'); window.cognitiveGames.initHeritageGame('easy');">
+          <div class="activity-icon-box">🦏</div>
+          <h3 data-i18n="actHeritageTitle">Heritage Tile Match</h3>
+          <p data-i18n="actHeritageDesc">Match familiar symbols: Kaziranga Rhino, Muga Silk, Gamusa, and Hornbill.</p>
+          <div class="activity-footer">
+            <span class="activity-tag">Visual Memory</span>
+            <span class="activity-play-btn" data-i18n="playNow">Play Now →</span>
+          </div>
+        </div>
+
+        <!-- Activity 2: Daily Life Sequence -->
+        <div class="activity-card card-daily" onclick="window.app.switchTab('games'); window.cognitiveGames.initSequenceGame(0);">
+          <div class="activity-icon-box">☕</div>
+          <h3 data-i18n="actDailyTitle">Daily Life Sequence</h3>
+          <p data-i18n="actDailyDesc">Arrange daily steps like brewing fresh Assam tea and watering orchids.</p>
+          <div class="activity-footer">
+            <span class="activity-tag">Daily Function</span>
+            <span class="activity-play-btn" data-i18n="playNow">Play Now →</span>
+          </div>
+        </div>
+
+        <!-- Activity 3: Folk Melody Recall -->
+        <div class="activity-card card-music" onclick="window.app.switchTab('games'); window.cognitiveGames.initAudioMelodyGame();">
+          <div class="activity-icon-box">🪈</div>
+          <h3 data-i18n="actMusicTitle">Folk Melody Recall</h3>
+          <p data-i18n="actMusicDesc">Listen to soothing Bihu flute, Manipuri Pena, and Cherrapunji rain.</p>
+          <div class="activity-footer">
+            <span class="activity-tag">Auditory Memory</span>
+            <span class="activity-play-btn" data-i18n="playNow">Play Now →</span>
+          </div>
+        </div>
+
+        <!-- Activity 4: Reminiscence Journal -->
+        <div class="activity-card card-photo" onclick="window.app.switchTab('storybook');">
+          <div class="activity-icon-box">📸</div>
+          <h3 data-i18n="actPhotoTitle">Reminiscence Journal</h3>
+          <p data-i18n="actPhotoDesc">Explore nostalgic family moments, historic tea gardens, and festivals.</p>
+          <div class="activity-footer">
+            <span class="activity-tag">Nostalgia & Family</span>
+            <span class="activity-play-btn" data-i18n="openAlbum">Open Album →</span>
+          </div>
+        </div>
+
+        <!-- Activity 5: Gentle Screening -->
+        <div class="activity-card card-screening" onclick="window.app.switchTab('screening');">
+          <div class="activity-icon-box">🩺</div>
+          <h3 data-i18n="actScreeningTitle">Gentle Memory Checkup</h3>
+          <p data-i18n="actScreeningDesc">Adapted Digital MMSE/MoCA checkup to track cognitive wellness.</p>
+          <div class="activity-footer">
+            <span class="activity-tag">Health Tracking</span>
+            <span class="activity-play-btn" data-i18n="startCheckup">Start Checkup →</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- -----------------------------------------------------------------------
+         TAB 2: COGNITIVE GAMES ARENA
+         ----------------------------------------------------------------------- -->
+    <!-- -----------------------------------------------------------------------
+         TAB 2: COGNITIVE GAMES ARENA
+         ----------------------------------------------------------------------- -->
+    <section id="tab-games" class="tab-pane">
+      <div class="section-header">
+        <div>
+          <h2>🧠 Culturally Grounded Cognitive Games</h2>
+          <p>Stimulate neuroplasticity, working memory, and procedural recall with zero stress and real-time AI difficulty adaptation.</p>
+        </div>
+        <!-- AI DDA Real-Time Control & Status Badge -->
+        <div class="dda-header-badge">
+          <div style="display:flex; align-items:center; gap:0.5rem;">
+            <button id="btnToggleDDA" class="toolbar-btn active" onclick="window.cognitiveGames.toggleDDAMode()" title="Toggle Dynamic Difficulty Tuning">
+              ⚡ AI DDA: Active
+            </button>
+            <span id="ddaCurrentLevelPill" class="difficulty-pill">🟢 Gentle (4 Cards)</span>
+          </div>
+          <div id="ddaStatusMessage" class="dda-status-text">
+            ✨ AI Auto-Tuning is monitoring recall latency and move accuracy.
+          </div>
+        </div>
+      </div>
+
+      <!-- Game Sub-Selector -->
+      <div class="game-subnav-bar">
+        <button class="btn-game-action" onclick="document.querySelectorAll('.game-module-box').forEach(b => b.style.display='none'); document.getElementById('gameHeritageBox').style.display='block'; window.cognitiveGames.initHeritageGame();">
+          🦏 Heritage Tile Match
+        </button>
+        <button class="btn-game-action" onclick="document.querySelectorAll('.game-module-box').forEach(b => b.style.display='none'); document.getElementById('gameSequenceBox').style.display='block'; window.cognitiveGames.initSequenceGame(0);">
+          ☕ Daily Living Sequence
+        </button>
+        <button class="btn-game-action" onclick="document.querySelectorAll('.game-module-box').forEach(b => b.style.display='none'); document.getElementById('gameAudioBox').style.display='block'; window.cognitiveGames.initAudioMelodyGame();">
+          🪈 Folk Melody Recall
+        </button>
+        <button class="btn-game-action" onclick="document.querySelectorAll('.game-module-box').forEach(b => b.style.display='none'); document.getElementById('gameMazeBox').style.display='block'; window.cognitiveGames.initMazeCanvas();">
+          🍵 Tea Garden Path Maze
+        </button>
+      </div>
+
+      <!-- 1. Heritage Tile Match Box -->
+      <div id="gameHeritageBox" class="game-container game-module-box">
+        <div class="game-header-bar">
+          <div class="game-title-area">
+            <h3>🦏 <span data-i18n="actHeritageTitle">Heritage Tile Match</span></h3>
+            <div style="font-size:0.9rem; color:var(--text-muted);">Match identical cultural symbols of Northeast India</div>
+          </div>
+          <div class="game-controls">
+            <span class="difficulty-pill">⏱️ Time: <strong id="heritageTimer">0:00</strong></span>
+            <span class="difficulty-pill">🎯 Moves: <strong id="heritageMoves">0</strong></span>
+            <span class="difficulty-pill">✨ Pairs: <strong id="heritageMatchedPairs">0 / 2</strong></span>
+            <span class="difficulty-pill">🏆 Score: <strong id="heritageScore">0</strong></span>
+            <div class="game-diff-group">
+              <button class="toolbar-btn" onclick="window.cognitiveGames.initHeritageGame('easy')" title="4 Cards">4 Cards</button>
+              <button class="toolbar-btn" onclick="window.cognitiveGames.initHeritageGame('medium')" title="8 Cards">8 Cards</button>
+              <button class="toolbar-btn" onclick="window.cognitiveGames.initHeritageGame('hard')" title="12 Cards">12 Cards</button>
+            </div>
+            <button class="btn-hero-primary" style="padding:0.4rem 1rem; min-height:42px; font-size:0.95rem;" onclick="window.cognitiveGames.initHeritageGame(window.cognitiveGames.currentDifficulty)">
+              🔄 Reset
+            </button>
+          </div>
+        </div>
+
+        <div id="heritageGameBoard" class="tile-board"></div>
+      </div>
+
+      <!-- 2. Sequence Game Box -->
+      <div id="gameSequenceBox" class="game-container game-module-box" style="display:none;">
+        <div class="game-header-bar">
+          <div class="game-title-area">
+            <h3>☕ <span data-i18n="actDailyTitle">Daily Life Sequence</span></h3>
+          </div>
+          <div class="game-controls">
+            <button class="toolbar-btn" onclick="window.cognitiveGames.initSequenceGame(0)">🍵 Chai Brewing</button>
+            <button class="toolbar-btn" onclick="window.cognitiveGames.initSequenceGame(1)">🌸 Orchid Care</button>
+            <button class="toolbar-btn" onclick="window.cognitiveGames.initSequenceGame(2)">🌅 Morning Routine</button>
+          </div>
+        </div>
+        <div id="sequenceGameContainer" class="sequence-game-area"></div>
+      </div>
+
+      <!-- 3. Auditory Melody Box -->
+      <div id="gameAudioBox" class="game-container game-module-box" style="display:none;">
+        <div class="game-header-bar">
+          <div class="game-title-area">
+            <h3>🪈 <span data-i18n="actMusicTitle">Folk Melody Recall</span></h3>
+          </div>
+        </div>
+        <div id="audioMelodyGameContainer"></div>
+      </div>
+
+      <!-- 4. Spatial Garden Maze Box -->
+      <div id="gameMazeBox" class="game-container game-module-box" style="display:none;">
+        <div class="game-header-bar">
+          <div class="game-title-area">
+            <h3>🍵 Tea Garden Path Tracing (Visuospatial Exercise)</h3>
+          </div>
+          <div class="game-controls">
+            <button class="btn-hero-primary" style="padding:0.4rem 1rem; min-height:40px; font-size:0.95rem;" onclick="window.cognitiveGames.initMazeCanvas()">
+              🔄 Clear Path
+            </button>
+          </div>
+        </div>
+        <p style="text-align:center; margin-bottom:1rem; font-weight:600; color:var(--text-secondary);">
+          Trace a path with your finger or mouse from your home verandah to the serene tea gazebo:
+        </p>
+        <div class="maze-canvas-container">
+          <canvas id="mazeCanvas" width="450" height="400"></canvas>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- -----------------------------------------------------------------------
+         TAB 3: REMINISCENCE PHOTO & AUDIO STORYBOOK
+         ----------------------------------------------------------------------- -->
+    <section id="tab-storybook" class="tab-pane">
+      <div class="section-header">
+        <div>
+          <h2>📸 Reminiscence Storybook & Family Album ("Smriti Khilon")</h2>
+          <p>Nostalgic storytelling, family recognition, and emotional well-being therapy.</p>
+        </div>
+        <div style="display:flex; gap:0.6rem;">
+          <button class="toolbar-btn active" onclick="window.reminiscenceStorybook.switchAlbum('heritage')">Heritage Memories</button>
+          <button class="toolbar-btn" onclick="window.reminiscenceStorybook.switchAlbum('family')">Family Album</button>
+          <button id="btnOpenAddPhotoModal" class="btn-game-action">+ Add Family Photo</button>
+        </div>
+      </div>
+
+      <div class="reminiscence-layout">
+        <!-- Photo Frame -->
+        <div class="photo-display-card">
+          <div class="memory-photo-frame" id="storybookPhotoFrame"></div>
+          <div class="memory-caption-box">
+            <h3 class="memory-caption-title" id="storybookPhotoTitle">Tea Harvest in Jorhat</h3>
+            <div class="memory-tags-list" id="storybookTagsList"></div>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-top:0.5rem;">
+            <button class="btn-hero-primary" style="padding:0.5rem 1.2rem; min-height:45px;" onclick="window.reminiscenceStorybook.prevPhoto()">
+              ← Previous Photo
+            </button>
+            <button class="btn-hero-primary" style="padding:0.5rem 1.2rem; min-height:45px;" onclick="window.reminiscenceStorybook.nextPhoto()">
+              Next Photo →
+            </button>
+          </div>
+        </div>
+
+        <!-- AI Reminiscence Prompt & Speech Response -->
+        <div class="reminiscence-ai-dialogue">
+          <div>
+            <div class="ai-question-bubble">
+              <div class="ai-speaker-tag">
+                <span>👵</span> Aita AI Reminiscence Prompt
+              </div>
+              <p class="ai-question-text" id="storybookAiPromptText">
+                Look at the golden sunrise over the tea bushes. Do you remember the fresh fragrance of morning tea leaves?
+              </p>
+              <button class="toolbar-btn" style="margin-top:0.8rem; background:#ffffff;" onclick="window.speechEngine.speak(document.getElementById('storybookAiPromptText').textContent)">
+                🔊 Read Prompt
+              </button>
+            </div>
+
+            <div class="patient-response-area">
+              <h4 style="font-size:1.1rem; margin-bottom:0.5rem; color:var(--text-primary);">
+                🎙️ Share your story in your own words:
+              </h4>
+              <div class="speech-record-control">
+                <button id="btnReminiscenceRecord" class="btn-mic-record" onclick="window.speechEngine.toggleListening()" title="Tap to Speak">
+                  🎤
+                </button>
+                <div style="font-weight:700; color:var(--text-secondary); font-size:0.95rem;">
+                  Tap the microphone and talk about this memory
+                </div>
+                <div id="patientTranscriptDisplay" class="speech-transcript-box">
+                  Listening to your gentle voice...
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:1.5rem; padding-top:1rem; border-top:1px dashed var(--border-subtle); display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:0.85rem; color:var(--text-muted);">
+              🔒 AI Acoustic Biomarkers are processed privately on-device
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- -----------------------------------------------------------------------
+         TAB 4: AI VOICE COMPANION ROOM ("Aita & Koko's Verandah")
+         ----------------------------------------------------------------------- -->
+    <section id="tab-companion" class="tab-pane">
+      <div class="companion-room-wrapper">
+        <div class="companion-verandah-header">
+          <h2 style="font-family:var(--font-family-display); font-size:2rem; color:var(--primary-600); margin-bottom:0.4rem;">
+            🌿 Aita & Koko's Verandah (চৰাঘৰ)
+          </h2>
+          <p style="color:var(--text-secondary); font-size:1.15rem;">
+            A compassionate conversational companion who listens to your stories, speaks your regional dialect, and offers warm comfort.
+          </p>
+        </div>
+
+        <div class="verandah-scene">
+          <div id="companionAvatarCircle" class="animated-companion-avatar">👵</div>
+        </div>
+
+        <div id="companionChatHistory" class="companion-chat-history">
+          <div class="chat-bubble companion">
+            <strong>🌿 Aita (Grandma AI):</strong> Namaskar! Come sit with me on the verandah. The morning tea is freshly poured. Tell me, how are you feeling today?
+          </div>
+        </div>
+
+        <div class="companion-voice-bar">
+          <button class="btn-hero-primary" style="font-size:1.25rem; padding:1rem 2.2rem;" onclick="window.speechEngine.toggleListening()">
+            <span>🎤</span> <span data-i18n="speakBtnPrompt">Press & Speak to Aita</span>
+          </button>
+          <button class="btn-game-action" onclick="window.speechEngine.speakWelcome()">
+            <span>🔊</span> Greet Me
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- -----------------------------------------------------------------------
+         TAB 5: DIGITAL COGNITIVE SCREENING (MMSE / MoCA Adapted)
+         ----------------------------------------------------------------------- -->
+    <section id="tab-screening" class="tab-pane">
+      <div class="screening-wizard-container">
+        <div class="section-header">
+          <div>
+            <h2>🩺 Gentle Cognitive & Memory Health Checkup</h2>
+            <p>Adapted MMSE / MoCA assessment designed specifically for Northeast senior citizens.</p>
+          </div>
+        </div>
+
+        <div class="wizard-progress-bar">
+          <div id="screeningProgressFill" class="wizard-progress-fill"></div>
+        </div>
+
+        <!-- Step 1: Temporal Orientation -->
+        <div id="screeningStepCard1" class="screening-step-card active">
+          <h3 class="screening-question-title">Step 1: Seasonal Awareness (ঋতু আৰু সময়)</h3>
+          <p class="screening-instruction">Which joyful festival or season is currently celebrated in our region?</p>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1rem; margin-top:1.5rem;">
+            <button class="activity-card" onclick="window.cognitiveAssessment.submitOrientationAnswer('season', 'spring')">
+              <span style="font-size:2rem;">🌸</span>
+              <h4 style="margin-top:0.5rem;">Spring / Rongali Bihu</h4>
+            </button>
+            <button class="activity-card" onclick="window.cognitiveAssessment.submitOrientationAnswer('season', 'autumn')">
+              <span style="font-size:2rem;">🪔</span>
+              <h4 style="margin-top:0.5rem;">Autumn / Durga Puja & Kati</h4>
+            </button>
+            <button class="activity-card" onclick="window.cognitiveAssessment.submitOrientationAnswer('season', 'winter')">
+              <span style="font-size:2rem;">🔥</span>
+              <h4 style="margin-top:0.5rem;">Winter / Magh Bihu & Hornbill</h4>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Immediate Word Recall -->
+        <div id="screeningStepCard2" class="screening-step-card">
+          <h3 class="screening-question-title">Step 2: Memory Word Registration (স্মৃতি পঞ্জীয়ন)</h3>
+          <p class="screening-instruction">Remember these 3 culturally familiar words. We will ask you to recall them shortly:</p>
+          <div style="display:flex; justify-content:center; gap:1.5rem; margin:2rem 0; flex-wrap:wrap;">
+            <div style="background:var(--primary-50); border:2px solid var(--primary-500); padding:1rem 1.8rem; border-radius:var(--border-radius-lg); font-size:1.3rem; font-weight:800;">
+              ✨ Muga Silk (মুগা)
+            </div>
+            <div style="background:var(--primary-50); border:2px solid var(--primary-500); padding:1rem 1.8rem; border-radius:var(--border-radius-lg); font-size:1.3rem; font-weight:800;">
+              🪈 Bihu Pepa (পেঁপা)
+            </div>
+            <div style="background:var(--primary-50); border:2px solid var(--primary-500); padding:1rem 1.8rem; border-radius:var(--border-radius-lg); font-size:1.3rem; font-weight:800;">
+              🦏 Kaziranga (কাজিৰঙা)
+            </div>
+          </div>
+          <div style="text-align:center;">
+            <button class="btn-hero-primary" onclick="window.cognitiveAssessment.submitRecallTest(3)">
+              I Have Remembered These Words →
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3: Attention & Calculation -->
+        <div id="screeningStepCard3" class="screening-step-card">
+          <h3 class="screening-question-title">Step 3: Attention & Calculation (মনোযোগ আৰু গণনা)</h3>
+          <p class="screening-instruction">If you have 10 tea cups and share 3 with guests, how many remain?</p>
+          <div style="display:flex; justify-content:center; gap:1.2rem; margin:2rem 0;">
+            <button class="btn-game-action" style="font-size:1.4rem; padding:0.8rem 1.8rem;" onclick="window.cognitiveAssessment.submitCalculationTest(false)">5 Cups</button>
+            <button class="btn-game-action" style="font-size:1.4rem; padding:0.8rem 1.8rem;" onclick="window.cognitiveAssessment.submitCalculationTest(true)">7 Cups</button>
+            <button class="btn-game-action" style="font-size:1.4rem; padding:0.8rem 1.8rem;" onclick="window.cognitiveAssessment.submitCalculationTest(false)">8 Cups</button>
+          </div>
+        </div>
+
+        <!-- Step 4: Delayed Recall -->
+        <div id="screeningStepCard4" class="screening-step-card">
+          <h3 class="screening-question-title">Step 4: Delayed Memory Recall (পূৰ্বৰ শব্দ মনত পেলোৱা)</h3>
+          <p class="screening-instruction">Which of these words were in the 3 words you memorized earlier?</p>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1rem; margin:1.5rem 0;">
+            <button class="activity-card" onclick="this.style.background='#dcfce7';">✨ Muga Silk</button>
+            <button class="activity-card" onclick="this.style.background='#fee2e2';">🍎 Himalayan Apple</button>
+            <button class="activity-card" onclick="this.style.background='#dcfce7';">🪈 Bihu Pepa</button>
+            <button class="activity-card" onclick="this.style.background='#dcfce7';">🦏 Kaziranga</button>
+          </div>
+          <div style="text-align:center;">
+            <button class="btn-hero-primary" onclick="window.cognitiveAssessment.nextStep()">
+              Proceed to Final Step →
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 5: Clock Drawing Test (CDT) -->
+        <div id="screeningStepCard5" class="screening-step-card">
+          <h3 class="screening-question-title">Step 5: Digital Clock Drawing Test (ঘড়ী অঁকা পৰীক্ষা)</h3>
+          <p class="screening-instruction">
+            Use your mouse or finger to draw the clock numbers (1 to 12) and draw the hands showing "10 past 11":
+          </p>
+          <div class="clock-canvas-wrapper">
+            <canvas id="clockCanvas" width="300" height="300"></canvas>
+            <div style="display:flex; gap:1rem;">
+              <button class="toolbar-btn" onclick="window.cognitiveAssessment.clearClockCanvas()">Clear Canvas</button>
+              <button class="btn-hero-primary" onclick="window.cognitiveAssessment.submitClockTest()">Submit Assessment</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Screening Results Container -->
+        <div id="screeningResultsArea" style="display:none;"></div>
+      </div>
+    </section>
+
+
+    <!-- -----------------------------------------------------------------------
+         TAB 6: CAREGIVER & DOCTOR TELE-DASHBOARD ("Sahayak Hub")
+         ----------------------------------------------------------------------- -->
+    <section id="tab-caregiver" class="tab-pane">
+      <div class="section-header">
+        <div>
+          <h2 data-i18n="caregiverTitle">Sahayak Hub - Caregiver & Clinical Dashboard</h2>
+          <p>Longitudinal cognitive tracking, vocal biomarker telemetry, medication reminders, DDA logs, and medical reports.</p>
+        </div>
+        <div style="display:flex; gap:0.8rem; flex-wrap:wrap;">
+          <button class="toolbar-btn" style="background:var(--primary-100);" onclick="window.speechEngine.simulateMedicationCue()">
+            💊 Test Med Cue
+          </button>
+          <button class="toolbar-btn" style="background:#e0f2fe; color:#0369a1;" onclick="window.speechEngine.simulateHydrationCue()">
+            💧 Test Hydration Cue
+          </button>
+          <button class="btn-hero-primary" style="padding:0.6rem 1.4rem; min-height:48px;" onclick="window.caregiverHub.exportClinicalReport()">
+            📄 <span data-i18n="exportReportBtn">Export Clinical PDF Report</span>
+          </button>
+          <button class="toolbar-btn" style="background:#fee2e2; color:#dc2626;" onclick="window.caregiverHub.triggerSOS()">
+            🚨 Trigger SOS Simulator
+          </button>
+        </div>
+      </div>
+
+      <!-- KPI Summary Cards -->
+      <div class="dashboard-grid-kpis">
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <span class="kpi-label" data-i18n="kpiCognitiveIndex">Cognitive Health Index</span>
+            <span class="kpi-icon">🧠</span>
+          </div>
+          <div class="kpi-value" id="kpiChiValue">84</div>
+          <div class="kpi-subtext">Status: <strong>Stable / Early MCI</strong></div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <span class="kpi-label" data-i18n="kpiMemorySpeed">Average Recall Speed</span>
+            <span class="kpi-icon">⚡</span>
+          </div>
+          <div class="kpi-value" id="kpiSpeedValue">2.4s</div>
+          <div class="kpi-subtext">Improved by 1.2s over 2 weeks</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <span class="kpi-label" data-i18n="kpiDailyStreak">Engagement Days</span>
+            <span class="kpi-icon">🔥</span>
+          </div>
+          <div class="kpi-value" id="kpiStreakValue">14 Days</div>
+          <div class="kpi-subtext">100% daily activity adherence</div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <span class="kpi-label" data-i18n="kpiMoodValence">Emotional Well-being</span>
+            <span class="kpi-icon">🌿</span>
+          </div>
+          <div class="kpi-value" style="color:var(--status-healthy);">92%</div>
+          <div class="kpi-subtext">High reminiscence responsiveness</div>
+        </div>
+      </div>
+
+      <!-- Main Dashboard Grid -->
+      <div class="dashboard-sections-grid">
+        <!-- Longitudinal Cognitive Trajectory Chart -->
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <h3 class="dash-panel-title">📈 Longitudinal Cognitive Trajectory (CHI Score Over Time)</h3>
+            <span class="difficulty-pill">Clinical Scale (50-100)</span>
+          </div>
+          <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1rem;">
+            Real-time neurocognitive progression tracked across daily gaming, speech latency, and orientation tests.
+          </p>
+          <canvas id="caregiverTrajectoryCanvas" width="700" height="260" style="width:100%; height:auto;"></canvas>
+        </div>
+
+        <!-- Live Vocal Biomarker Telemetry -->
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <h3 class="dash-panel-title">🎙️ AI Vocal Biomarkers</h3>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:1.1rem; margin-top:0.5rem;">
+            <div>
+              <div style="font-size:0.85rem; color:var(--text-muted); font-weight:700;">SPEECH RESPONSE LATENCY</div>
+              <div id="liveSpeechLatency" style="font-size:1.6rem; font-weight:800; color:var(--primary-600);">2.4s</div>
+              <div style="font-size:0.8rem; color:var(--status-healthy);">✓ Within normal range</div>
+            </div>
+            <div>
+              <div style="font-size:0.85rem; color:var(--text-muted); font-weight:700;">SPEECH ARTICULATION RATE</div>
+              <div id="liveSpeechWpm" style="font-size:1.6rem; font-weight:800; color:var(--primary-600);">75 WPM</div>
+              <div style="font-size:0.8rem; color:var(--text-secondary);">Age-appropriate speech cadence</div>
+            </div>
+            <div>
+              <div style="font-size:0.85rem; color:var(--text-muted); font-weight:700;">ANOMIA (WORD HESITATION) RISK</div>
+              <div id="liveAnomiaStatus" style="font-size:1.3rem; font-weight:800; color:var(--status-healthy);">Healthy / Normal</div>
+              <div style="font-size:0.8rem; color:var(--text-secondary);">Minimal lexical pause latency</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Secondary Grid: DDA Logs & Recent Sessions -->
+      <div class="dashboard-sections-grid" style="margin-top:1.5rem;">
+        <!-- DDA Adaptive Tuning Log -->
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <h3 class="dash-panel-title">⚡ Dynamic Difficulty Adjustment (DDA) Logs</h3>
+            <span class="difficulty-pill">AI Auto-Tuner</span>
+          </div>
+          <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:0.8rem;">
+            Automated difficulty adaptation history based on reaction speed, error frequency, and cognitive fatigue.
+          </p>
+          <div id="caregiverDdaLogList" class="dda-log-list"></div>
+        </div>
+
+        <!-- Recent Cognitive Gaming Sessions -->
+        <div class="dash-panel">
+          <div class="dash-panel-header">
+            <h3 class="dash-panel-title">🎮 Recent Activity Telemetry</h3>
+            <span class="difficulty-pill">Today's Sessions</span>
+          </div>
+          <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:0.8rem;">
+            Recorded scores, completion times, and difficulty tier for each daily session.
+          </p>
+          <div id="caregiverRecentSessionsList" class="session-log-list"></div>
+        </div>
+      </div>
+
+      <!-- Medication & Hydration Smart Reminders -->
+      <div class="dash-panel" style="margin-top:1.5rem; margin-bottom:2rem;">
+        <div class="dash-panel-header">
+          <h3 class="dash-panel-title" data-i18n="medicationTitle">Medication & Hydration Schedule</h3>
+          <button class="toolbar-btn" onclick="const t = prompt('Enter reminder time (e.g. 09:00 PM):'); const m = prompt('Enter medicine/hydration description:'); const tp = confirm('Is this medication? (Cancel for Hydration)') ? 'medication' : 'hydration'; if(t && m) window.caregiverHub.addCustomReminder(t, m, tp);">
+            + Add Voice Reminder
+          </button>
+        </div>
+        <div id="caregiverReminderList" class="reminder-list"></div>
+      </div>
+
+      <!-- Geofence & Wandering Safety -->
+      <div class="geofence-box">
+        <div class="geofence-status">
+          <span style="font-size:1.4rem;">📍</span>
+          <span data-i18n="geofenceStatus">Safe Zone - Patient at Home (Jorhat Residence)</span>
+        </div>
+        <p style="font-size:0.9rem; color:#7f1d1d;">
+          Simulated IoT / GPS geofencing perimeter: 150m radius around Jorhat residence. Real-time SMS & audible alerts are triggered if perimeter is breached during sundowning hours (4:00 PM - 8:00 PM).
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       4. Floating Voice Cue Simulation Toolbar & Floating Assistant
+       ========================================================================= -->
+  <div class="floating-cue-bar" aria-label="Simulation Bar">
+    <button class="cue-sim-btn med" onclick="window.speechEngine.simulateMedicationCue()" title="Simulate Senior Medication Audio Reminder">
+      💊 Med Cue
+    </button>
+    <button class="cue-sim-btn water" onclick="window.speechEngine.simulateHydrationCue()" title="Simulate Senior Hydration Audio Reminder">
+      💧 Water Cue
+    </button>
+    <button id="btnFloatingAssistant" class="floating-assistant-btn" onclick="window.app.switchTab('companion')" title="Talk with Aita AI Companion">
+      👵
+    </button>
+  </div>
+
+  <!-- Positive Reinforcement Banner -->
+  <div id="celebrationBanner" class="celebration-banner">
+    🌟 Wonderful Job!
+  </div>
+
+  <!-- =========================================================================
+       5. Modal: Senior-Friendly Audio & Voice Cue Alert Modal
+       ========================================================================= -->
+  <div id="voiceReminderModal" class="modal-overlay">
+    <div class="modal-dialog reminder-modal-dialog">
+      <div class="reminder-dialog-header">
+        <div id="voiceReminderIcon" class="reminder-bell-icon">🔔</div>
+        <div>
+          <h3 id="voiceReminderTitle" style="font-size:1.45rem; color:var(--primary-600); margin:0;">Medication Reminder</h3>
+          <div style="font-size:0.85rem; color:var(--text-muted); font-weight:700;">Smriti-Setu Voice Companion Dispatch</div>
+        </div>
+      </div>
+
+      <div class="reminder-dialog-body">
+        <p id="voiceReminderMessage" class="reminder-spoken-text">
+          Good morning, respected elder! It is time for your morning blood pressure medicine with a warm glass of water.
+        </p>
+      </div>
+
+      <div class="reminder-dialog-actions">
+        <button class="btn-hero-primary" style="flex:2; justify-content:center; font-size:1.15rem; min-height:56px;" onclick="window.speechEngine.dismissVoiceReminder('taken')">
+          ✓ Mark as Taken
+        </button>
+        <button class="toolbar-btn" style="flex:1; justify-content:center; min-height:56px; font-size:1.05rem;" onclick="window.speechEngine.repeatCurrentVoiceReminder()">
+          🔊 Repeat Voice
+        </button>
+        <button class="toolbar-btn" style="background:#fef3c7; color:#b45309; justify-content:center; min-height:56px; font-size:1.05rem;" onclick="window.speechEngine.dismissVoiceReminder('snooze')">
+          ⏳ Snooze 5m
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       6. Modal: Caregiver Add Photo
+       ========================================================================= -->
+  <div id="addPhotoModal" class="modal-overlay">
+    <div class="modal-dialog">
+      <button id="btnCloseAddPhotoModal" class="modal-close-btn">&times;</button>
+      <h3 style="font-size:1.4rem; color:var(--primary-600); margin-bottom:0.5rem;">📸 Add Cherished Family Memory</h3>
+      <p style="font-size:0.95rem; color:var(--text-secondary); margin-bottom:1.2rem;">
+        Add a family moment with tagged relations to generate personalized reminiscence prompts for the patient.
+      </p>
+
+      <form id="formAddPhoto">
+        <div style="margin-bottom:1rem;">
+          <label style="display:block; font-weight:700; margin-bottom:0.3rem;">Photo Title / Description:</label>
+          <input type="text" id="photoTitleInput" required placeholder="e.g. Son Rahul's Wedding in Guwahati" style="width:100%; padding:0.8rem; border-radius:var(--border-radius-md); border:1px solid var(--border-subtle); font-size:1rem;">
+        </div>
+
+        <div style="margin-bottom:1rem;">
+          <label style="display:block; font-weight:700; margin-bottom:0.3rem;">Approximate Year:</label>
+          <input type="text" id="photoYearInput" placeholder="e.g. 2012" style="width:100%; padding:0.8rem; border-radius:var(--border-radius-md); border:1px solid var(--border-subtle); font-size:1rem;">
+        </div>
+
+        <div style="margin-bottom:1.5rem;">
+          <label style="display:block; font-weight:700; margin-bottom:0.3rem;">People & Tags (comma separated):</label>
+          <input type="text" id="photoTagsInput" placeholder="Rahul (Son), Guwahati, Mekhela Chador, Golden Day" style="width:100%; padding:0.8rem; border-radius:var(--border-radius-md); border:1px solid var(--border-subtle); font-size:1rem;">
+        </div>
+
+        <button type="submit" class="btn-hero-primary" style="width:100%; justify-content:center;">
+          Save Memory & Generate AI Story
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/i18n.js"></script>
+  <script src="js/audioSynth.js"></script>
+  <script src="js/speechEngine.js"></script>
+  <script src="js/games.js"></script>
+  <script src="js/reminiscence.js"></script>
+  <script src="js/cognitiveAssessment.js"></script>
+  <script src="js/caregiverDashboard.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
